@@ -4,20 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
-    <script type="module" src="./index.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-  <input
-    type="text"
-    name="searchQuery"
-    autocomplete="off"
-    placeholder="Search images..."
-  />
-  <button type="submit">Search</button>
-</form>
-<button type="button" class="load-more">Load more</button>
+    <header>
+      <form class="search-form" id="search-form">
+        <div class="input-container">
+          <input
+            type="text"
+            name="searchQuery"
+            autocomplete="off"
+            placeholder="Search images..."
+          />
 
+          <button type="submit" class="submit-button">
+            <svg width="15" height="12">
+              <use href="./icons.svg#icon-search"></use>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </header>
+    <div class="gallery">
+      <!-- Картки зображень -->
+    </div>
+    <button type="button" class="load-more">Load More</button>
 
+    <script type="module" src="./js/index.js"></script>
   </body>
 </html>
