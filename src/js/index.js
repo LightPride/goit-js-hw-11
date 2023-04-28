@@ -12,7 +12,7 @@ const refs = {
 refs.form.addEventListener('submit', onFormSubmit);
 
 refs.loadMoreBtn.addEventListener('click', fetchMoreImg);
-refs.loadMoreBtn.disabled = true;
+refs.loadMoreBtn.classList.add('disabled');
 
 function onFormSubmit(event) {
   event.preventDefault();
@@ -27,7 +27,13 @@ function onFormSubmit(event) {
   imageApiService.fetchImg().then(images => {
     makeImagesMarkup(images);
     if (images) {
-      refs.loadMoreBtn.disabled = false;
+      refs.loadMoreBtn.classList.remove('disabled');
+    }
+    if (images.length <= 10) {
+      refs.loadMoreBtn.classList.add('disabled');
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
     }
   });
   refs.loadMoreBtn.classList.remove('loading');
@@ -37,7 +43,15 @@ const imageApiService = new ImagesApiService();
 
 function fetchMoreImg() {
   refs.loadMoreBtn.classList.add('loading');
-  imageApiService.fetchImg().then(makeImagesMarkup);
+  imageApiService.fetchImg().then(images => {
+    makeImagesMarkup(images);
+    if (images.length % 2 !== 0) {
+      refs.loadMoreBtn.classList.add('disabled');
+      Notiflix.Notify.warning(
+        "We're sorry, but you've reached the end of search results."
+      );
+    }
+  });
   refs.loadMoreBtn.classList.remove('loading');
 }
 

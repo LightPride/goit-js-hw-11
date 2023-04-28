@@ -160,6 +160,11 @@ header {
   transition: padding-right 0.3s ease-out;
 }
 
+.load-more.disabled {
+  display: none;
+}
+
+
 .load-more.loading {
   background-color: #ccc;
   padding-right: 40px;
