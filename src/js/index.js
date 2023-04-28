@@ -25,9 +25,12 @@ function onFormSubmit(event) {
   imageApiService.query = formElems.searchQuery.value;
   imageApiService.resetPage();
   imageApiService.fetchImg().then(images => {
-    makeImagesMarkup(images);
+    if (!images) {
+      return;
+    }
     if (images) {
       refs.loadMoreBtn.classList.remove('disabled');
+      makeImagesMarkup(images);
     }
     if (images.length < 40) {
       refs.loadMoreBtn.classList.add('disabled');
@@ -45,7 +48,7 @@ function fetchMoreImg() {
   refs.loadMoreBtn.classList.add('loading');
   imageApiService.fetchImg().then(images => {
     makeImagesMarkup(images);
-    if (images.length < imageApiService.page * 40) {
+    if (images.length < 40) {
       refs.loadMoreBtn.classList.add('disabled');
       Notiflix.Notify.warning(
         "We're sorry, but you've reached the end of search results."
