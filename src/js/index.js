@@ -29,7 +29,7 @@ function onFormSubmit(event) {
     if (images) {
       refs.loadMoreBtn.classList.remove('disabled');
     }
-    if (images.length <= 10) {
+    if (images.length < 40) {
       refs.loadMoreBtn.classList.add('disabled');
       Notiflix.Notify.warning(
         "We're sorry, but you've reached the end of search results."
@@ -45,7 +45,7 @@ function fetchMoreImg() {
   refs.loadMoreBtn.classList.add('loading');
   imageApiService.fetchImg().then(images => {
     makeImagesMarkup(images);
-    if (images.length % 2 !== 0) {
+    if (images.length < imageApiService.page * 40) {
       refs.loadMoreBtn.classList.add('disabled');
       Notiflix.Notify.warning(
         "We're sorry, but you've reached the end of search results."
